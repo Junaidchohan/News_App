@@ -1,39 +1,30 @@
 import 'package:news__app/features/daily_news/domain/entities/article.dart';
 
-
 class ArticleModel extends ArticleEntity {
-  final int? id;
-  final String? author;
-  final String title;
-  final String? description;
-  final String url;
-  final String? urlToImage;
-  final String publishedAt;
-  final String? content;
+  const ArticleModel({
+    required super.id,
+    super.author,
+    required super.title,
+    super.description,
+    required super.url,
+    super.urlToImage,
+    required super.publishedAt,
+    super.content,
+  });
 
-  factory ArticleModel.fromJson(Map<String, dynamic> json) {
+  factory ArticleModel.fromJson(
+    Map<String, dynamic> json, {
+    required int generatedId,
+  }) {
     return ArticleModel(
-      id: json['id'],
+      id: json['id'] ?? generatedId,
       author: json['author'],
       title: json['title'] ?? '',
       description: json['description'],
       url: json['url'] ?? '',
       urlToImage: json['urlToImage'],
-      publishedAt: json['publishedAt'] ?? '',
+      publishedAt: DateTime.parse(json['publishedAt']),
       content: json['content'],
-    );
-  }
-
-  ArticleEntity toEntity({required int generatedId}) {
-    return ArticleEntity(
-      id: id ?? generatedId,
-      author: author,
-      title: title,
-      description: description,
-      url: url,
-      urlToImage: urlToImage,
-      publishedAt: DateTime.parse(publishedAt),
-      content: content,
     );
   }
 }
